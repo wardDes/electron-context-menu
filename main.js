@@ -1,6 +1,13 @@
 const electron = require('electron')
 
-const { app, BrowserWindow } = require('electron')
+const {
+  BrowserWindow,
+  Menu,
+  MenuItem,
+  ipcMain,
+  app,
+  ipcRenderer
+} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,7 +27,7 @@ function createWindow () {
   win.loadFile('index.html')
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -34,7 +41,62 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+
+
+//app.on('ready', createWindow)
+
+app.on('ready', function () {
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+  createWindow()
+})
+
+let template = [
+  {
+    label: 'Menu 1',
+    submenu: [{
+      label: 'Menu items 1'
+    }]
+  },
+  {
+    label: 'Menu 2',
+      submenu: [{
+        label: 'Another Menu item'
+      }, {
+        label: 'One More Menu Item'
+    }]
+  }
+]
+
+/******************************************************
+SEE RENDEERE.JS FILE TO SEE HOW TO IMPLEMENT  CONTEXT MENU
+FROM RENDERER PROCESS
+*******************************************************/
+
+
+
+// \v|v/ FOR IMPLEMENTING CONTEXT MENU from main process
+// *****************************************************
+
+// const menu = new Menu()
+// menu.append(new MenuItem({ label: 'Hello' }))
+// menu.append(new MenuItem({ type: 'separator' }))
+// menu.append(new MenuItem({ label: 'Electron', type: 'checkbox', checked: true }))
+
+// app.on('browser-window-created', (event, win) => {
+//   win.webContents.on('context-menu', (e, params) => {
+//     menu.popup(win, params.x, params.y)
+//   })
+// })
+
+// ipcMain.on('show-context-menu', (event) => {
+//   const win = BrowserWindow.fromWebContents(event.sender)
+//   menu.popup(win)
+// })
+
+// *****************************************************
+// /^|^\ FOR IMPLEMENTING CONTEXT MENU from main process
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -55,3 +117,4 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+//require('context-menu.js')

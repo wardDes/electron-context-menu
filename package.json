@@ -12,7 +12,5 @@
   ],
   "author": "Daniel Howard",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^7.1.4"
-  }
+  "devDependencies": {}
 }
