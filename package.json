@@ -13,6 +13,6 @@
   "author": "Daniel Howard",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^7.1.4"
+    "electron": "^15.5.5"
   }
 }
